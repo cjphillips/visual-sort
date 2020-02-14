@@ -1,0 +1,35 @@
+.page {
+  background-color: #212529;
+}
+
+.node > .node-bar {
+  margin-left: 0;
+  margin-right: 0;
+  border-radius: 3px;
+}
+
+.node.active > div > p.node-value {
+  color: #339966;
+  font-weight: bold;
+}
+
+.node.active > .node-bar {
+  background-color: #339966;
+}
+
+.node.active > .node-bar:hover {
+  background-color: #53c68c;
+}
+
+.node.inactive > div > p.node-value {
+  color: white;
+  font-weight: normal;
+}
+
+.node.inactive > .node-bar {
+  background-color: #6699ff;
+}
+
+.node.inactive > .node-bar:hover {
+  background-color: #3377ff;
+}

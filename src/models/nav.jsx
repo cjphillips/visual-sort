@@ -1,11 +1,12 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
-import Button from "react-bootstrap/Button";
-import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
-import NavDropdown from "react-bootstrap/NavDropdown";
+import Button from 'react-bootstrap/Button';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import NavDropdown from 'react-bootstrap/NavDropdown';
 
-const algorithms = ["Bubble Sort", "Heap Sort", "Merge Sort", "Quick Sort"];
+import { ALGORITHMS, SORT_ORDER } from './algorithm';
+import Container from 'react-bootstrap/Container';
 
 class Navigation extends Component {
   constructor(props) {
@@ -15,35 +16,59 @@ class Navigation extends Component {
 
   handleSelection = alg => {
     this.setState({
-      activeAlgorithm: alg
+      activeAlgorithm: alg,
     });
   };
 
   render() {
     return (
-      <Navbar bg="dark" variant="dark">
+      <Navbar bg='dark' variant='dark'>
         <Nav
-          variant="pills"
-          className="mr-auto"
+          variant='pills'
+          className='mr-auto'
           onSelect={this.handleSelection}
         >
           <NavDropdown
-            title="Select an algorithm"
-            id="algorithms-dropdown"
-            defaultValue={algorithms[0]}
+            title='Select a sort order'
+            id='algorithms-dropdown'
+            defaultValue={Object.keys(SORT_ORDER)[0]}
           >
-            {algorithms.map(a => (
+            {Object.values(SORT_ORDER).map(a => (
               <NavDropdown.Item eventKey={a}>{a}</NavDropdown.Item>
             ))}
           </NavDropdown>
-        </Nav>
-        {this.state.activeAlgorithm && (
-          <Nav className="justify-content-end" variant="pills">
-            <Button className="mr-4" variant="info">
+          <NavDropdown
+            title='Select an algorithm'
+            id='algorithms-dropdown'
+            defaultValue={Object.keys(ALGORITHMS)[0]}
+          >
+            {Object.values(ALGORITHMS).map(a => (
+              <NavDropdown.Item eventKey={a}>{a}</NavDropdown.Item>
+            ))}
+          </NavDropdown>
+          {this.state.activeAlgorithm && (
+            <Button className='ml-1' variant='info'>
               Run {this.state.activeAlgorithm}!
             </Button>
-          </Nav>
-        )}
+          )}
+        </Nav>
+        <Nav className='justify-content-end' variant='pills'>
+          <Container>
+            <Nav.Item>
+              <div>
+                <input
+                  type='range'
+                  className='custom-range'
+                  min='3'
+                  max='100'
+                  onChange={e => {
+                    this.props.onRangeChange(e);
+                  }}
+                />
+              </div>
+            </Nav.Item>
+          </Container>
+        </Nav>
       </Navbar>
     );
   }
