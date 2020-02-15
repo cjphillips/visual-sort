@@ -5,7 +5,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 
-import { ALGORITHMS, SORT_ORDER } from './algorithm';
+import { ALGORITHMS, SORT_ORDER } from '../sorting/algorithm';
 import Container from 'react-bootstrap/Container';
 
 class Navigation extends Component {
@@ -29,7 +29,7 @@ class Navigation extends Component {
           onSelect={this.handleSelection}
         >
           <NavDropdown
-            title='Select a sort order'
+            title={Object.values(SORT_ORDER)[0]}
             id='algorithms-dropdown'
             defaultValue={Object.keys(SORT_ORDER)[0]}
           >
@@ -38,7 +38,7 @@ class Navigation extends Component {
             ))}
           </NavDropdown>
           <NavDropdown
-            title='Select an algorithm'
+            title={Object.values(ALGORITHMS)[0]}
             id='algorithms-dropdown'
             defaultValue={Object.keys(ALGORITHMS)[0]}
           >
