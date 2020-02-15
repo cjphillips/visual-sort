@@ -7,8 +7,8 @@ import Row from 'react-bootstrap/Row';
 
 import {} from './sorting/algorithm';
 
-import Navigation from './views/nav';
-import { Stage } from './views/stage';
+import Navigation from 'views/nav';
+import { Stage } from 'views/stage';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 

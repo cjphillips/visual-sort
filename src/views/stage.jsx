@@ -26,6 +26,8 @@ class Node extends Component {
     };
   }
 
+  #foo = () => {};
+
   render() {
     return (
       <Container fluid={true} className='mx-0 px-0'>

@@ -5,8 +5,9 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 
-import { ALGORITHMS, SORT_ORDER } from '../sorting/algorithm';
+import { ALGORITHMS, SORT_ORDER } from 'sorting/algorithm';
 import Container from 'react-bootstrap/Container';
+import quicksort from 'sorting/algorithms/quicksort';
 
 class Navigation extends Component {
   constructor(props) {
@@ -46,8 +47,14 @@ class Navigation extends Component {
               <NavDropdown.Item eventKey={a}>{a}</NavDropdown.Item>
             ))}
           </NavDropdown>
-          {this.state.activeAlgorithm && (
-            <Button className='ml-1' variant='info'>
+          {true && (
+            <Button
+              className='ml-1'
+              variant='info'
+              onClick={() => {
+                console.log(quicksort());
+              }}
+            >
               Run {this.state.activeAlgorithm}!
             </Button>
           )}
