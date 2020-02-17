@@ -9,7 +9,7 @@ import { ALGORITHMS, SORT_ORDER } from 'sorting/algorithm';
 import Container from 'react-bootstrap/Container';
 import quicksort from 'sorting/algorithms/quicksort';
 
-class Navigation extends Component {
+class Options extends Component {
   constructor(props) {
     super(props);
     this.state = { activeAlgorithm: null };
@@ -34,8 +34,10 @@ class Navigation extends Component {
             id='algorithms-dropdown'
             defaultValue={Object.keys(SORT_ORDER)[0]}
           >
-            {Object.values(SORT_ORDER).map(a => (
-              <NavDropdown.Item eventKey={a}>{a}</NavDropdown.Item>
+            {Object.values(SORT_ORDER).map((a, i) => (
+              <NavDropdown.Item key={`sort-dd-${i.toString()}`} eventKey={a}>
+                {a}
+              </NavDropdown.Item>
             ))}
           </NavDropdown>
           <NavDropdown
@@ -43,17 +45,17 @@ class Navigation extends Component {
             id='algorithms-dropdown'
             defaultValue={Object.keys(ALGORITHMS)[0]}
           >
-            {Object.values(ALGORITHMS).map(a => (
-              <NavDropdown.Item eventKey={a}>{a}</NavDropdown.Item>
+            {Object.values(ALGORITHMS).map((a, i) => (
+              <NavDropdown.Item key={`alg-dd-${i.toString()}`} eventKey={a}>
+                {a}
+              </NavDropdown.Item>
             ))}
           </NavDropdown>
           {true && (
             <Button
               className='ml-1'
               variant='info'
-              onClick={() => {
-                console.log(quicksort());
-              }}
+              onClick={this.props.onStart}
             >
               Run {this.state.activeAlgorithm}!
             </Button>
@@ -81,4 +83,4 @@ class Navigation extends Component {
   }
 }
 
-export default Navigation;
+export default Options;

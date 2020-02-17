@@ -1,3 +1,5 @@
+import QuickSort from 'sorting/algorithms/quicksort';
+
 export const ALGORITHMS = Object.freeze({
   BUBBLE: 'Bubble Sort',
   HEAP: 'Heap Sort',
@@ -11,20 +13,16 @@ export const SORT_ORDER = Object.freeze({
   BEST: 'Best Case',
 });
 
-export const sort = (list, algorithm) => {
+export const getSortingAlgorithm = algorithm => {
   switch (algorithm) {
     case ALGORITHMS.BUBBLE:
-      bubbleSort(list);
-      break;
+      throw new Error(`${algorithm} not yet implemented`);
     case ALGORITHMS.HEAP:
-      heapSort(list);
-      break;
+      throw new Error(`${algorithm} not yet implemented`);
     case ALGORITHMS.MERGE:
-      mergeSort(list);
-      break;
+      throw new Error(`${algorithm} not yet implemented`);
     case ALGORITHMS.QUICK:
-      quickSort(list);
-      break;
+      return new QuickSort();
     default:
       throw Error(`Unknown algoithm: ${algorithm}`);
   }

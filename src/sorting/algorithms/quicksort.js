@@ -45,7 +45,7 @@ const _partition = (list, low, high) => {
   );
 
   for (let j = low; j <= high - 1; j++) {
-    if (list[j] < pivot) {
+    if (list[j].value < pivot.value) {
       li++;
       _swap(list, li, j);
     }
@@ -62,10 +62,9 @@ const _quicksort = (list, low, high) => {
   }
 };
 
-const quickSort = () => {
-  let list = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
+const quickSort = list => {
   _quicksort(list, 0, list.length - 1);
-  return list.toString();
+  return list;
 };
 
 export default quickSort;
