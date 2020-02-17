@@ -5,7 +5,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 
-import { ALGORITHMS, SORT_ORDER } from 'sorting/algorithm';
+import { Algorithms, SortOrder } from 'sorting/definitions';
 import Container from 'react-bootstrap/Container';
 import quicksort from 'sorting/algorithms/quicksort';
 
@@ -24,28 +24,24 @@ class Options extends Component {
   render() {
     return (
       <Navbar bg='dark' variant='dark'>
-        <Nav
-          variant='pills'
-          className='mr-auto'
-          onSelect={this.handleSelection}
-        >
+        <Nav variant='pills' className='mr-auto'>
           <NavDropdown
-            title={Object.values(SORT_ORDER)[0]}
+            title='Sort Order'
             id='algorithms-dropdown'
-            defaultValue={Object.keys(SORT_ORDER)[0]}
+            onSelect={this.props.onListOrderChange}
           >
-            {Object.values(SORT_ORDER).map((a, i) => (
+            {Object.values(SortOrder).map((a, i) => (
               <NavDropdown.Item key={`sort-dd-${i.toString()}`} eventKey={a}>
                 {a}
               </NavDropdown.Item>
             ))}
           </NavDropdown>
           <NavDropdown
-            title={Object.values(ALGORITHMS)[0]}
+            title='Algorithm'
             id='algorithms-dropdown'
-            defaultValue={Object.keys(ALGORITHMS)[0]}
+            onSelect={this.props.onAlgorithmChange}
           >
-            {Object.values(ALGORITHMS).map((a, i) => (
+            {Object.values(Algorithms).map((a, i) => (
               <NavDropdown.Item key={`alg-dd-${i.toString()}`} eventKey={a}>
                 {a}
               </NavDropdown.Item>
@@ -57,7 +53,7 @@ class Options extends Component {
               variant='info'
               onClick={this.props.onStart}
             >
-              Run {this.state.activeAlgorithm}!
+              Run {this.props.selectedAlgorithm}!
             </Button>
           )}
         </Nav>
@@ -70,9 +66,7 @@ class Options extends Component {
                   className='custom-range'
                   min='3'
                   max='100'
-                  onChange={e => {
-                    this.props.onRangeChange(e);
-                  }}
+                  onChange={this.props.onRangeChange}
                 />
               </div>
             </Nav.Item>

@@ -1,9 +1,11 @@
-export const ParitionScheme = {
+import { sleep, swap } from 'utility';
+
+export const ParitionScheme = Object.freeze({
   LAST: 'Last value',
   FIRST: 'First value',
   RANDOM: 'Random value',
   MEDIAN: 'Median value',
-};
+});
 
 export const SortSpeed = {
   SLOW: 0.5,
@@ -11,60 +13,62 @@ export const SortSpeed = {
   FAST: 2.0,
 };
 
-/*
 class QuickSort {
-  constructor(paritionScheme, sortSpeed) {
-    this.sortSpeed = sortSpeed;
-    this.
+  constructor(updateHandler) {
+    this.updateHandler = updateHandler;
   }
 
-  _sort = (list, low, high) => {};
+  showStep = async () => {
+    await this.updateHandler();
+    await sleep(20);
+  };
 
-  sort = list => {
-    this._sort(list, 0, list.length);
+  sort = async list => await this._sort(list, 0, list.length - 1);
+
+  _partition = async (list, low, high) => {
+    // Get the pivot value. This can be swapped out for a different method (i.e. left-most, median, random, etc)
+    let pivot = list[high];
+    list[high].activate();
+    await this.showStep();
+    let li = low - 1;
+
+    for (let j = low; j <= high - 1; j++) {
+      list[j].activate();
+      await this.showStep();
+
+      if (list[j].value < pivot.value) {
+        li++;
+        list[li].activate();
+        await this.showStep();
+
+        swap(list, li, j);
+        await this.showStep();
+
+        list[li].deactivate();
+      }
+
+      list[j].deactivate();
+      await this.showStep();
+    }
+
+    list[li + 1].activate();
+    await this.showStep();
+    swap(list, li + 1, high);
+
+    list[li + 1].deactivate();
+    list[high].deactivate();
+    await this.showStep();
+
+    return li + 1;
+  };
+
+  _sort = async (list, low, high) => {
+    if (low < high) {
+      let partitionIndex = await this._partition(list, low, high);
+      await this._sort(list, low, partitionIndex - 1);
+      await this._sort(list, partitionIndex + 1, high);
+    }
   };
 }
 
-let qs = new QuickSort();
-qs._sort();
-*/
-
-const _swap = (list, ia, ib) => {
-  let tmp = list[ib];
-  list[ib] = list[ia];
-  list[ia] = tmp;
-};
-
-const _partition = (list, low, high) => {
-  // Get the pivot value. This can be swapped out for a different method (i.e. left-most, median, random, etc)
-  let pivot = list[high];
-  let li = low - 1;
-
-  console.log(
-    `list=${list}, low=${low}, high=${high}, pivot=${pivot}, li=${li}`,
-  );
-
-  for (let j = low; j <= high - 1; j++) {
-    if (list[j].value < pivot.value) {
-      li++;
-      _swap(list, li, j);
-    }
-  }
-  _swap(list, li + 1, high);
-  return li + 1;
-};
-
-const _quicksort = (list, low, high) => {
-  if (low < high) {
-    let partition_index = _partition(list, low, high);
-    _quicksort(list, low, partition_index - 1);
-    _quicksort(list, partition_index + 1, high);
-  }
-};
-
-const quickSort = list => {
-  _quicksort(list, 0, list.length - 1);
-  return list;
-};
-
-export default quickSort;
+export default QuickSort;
