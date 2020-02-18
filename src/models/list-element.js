@@ -1,26 +1,17 @@
-const INACTIVE_COLOR = '#6699ff';
-const ACTIVE_DEFAULT = '#339966';
+import ValueStateMap from 'views/value-state';
 
 class ListElement {
   constructor(value) {
     this.value = value;
-    this.active = false;
-    this.color = INACTIVE_COLOR;
+    this.state = ValueStateMap.Inactive;
   }
 
-  activate = type => {
-    if (type === undefined) {
-      type = ACTIVE_DEFAULT;
-    }
+  get isActive() {
+    return this.state !== ValueStateMap.Inactive;
+  }
 
-    this.active = true;
-    this.color = type;
-  };
-
-  deactivate = () => {
-    this.active = false;
-    this.color = INACTIVE_COLOR;
-  };
+  activate = state => (this.state = state || ValueStateMap.ActiveDefault);
+  deactivate = () => (this.state = ValueStateMap.Inactive);
 }
 
 export default ListElement;

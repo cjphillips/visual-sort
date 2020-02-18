@@ -1,4 +1,5 @@
 import { sleep, swap } from 'utility';
+import ValueStateMap from 'views/value-state';
 
 export const ParitionScheme = Object.freeze({
   LAST: 'Last value',
@@ -20,7 +21,7 @@ class QuickSort {
 
   showStep = async () => {
     await this.updateHandler();
-    await sleep(20);
+    await sleep(5);
   };
 
   sort = async list => await this._sort(list, 0, list.length - 1);
@@ -28,7 +29,7 @@ class QuickSort {
   _partition = async (list, low, high) => {
     // Get the pivot value. This can be swapped out for a different method (i.e. left-most, median, random, etc)
     let pivot = list[high];
-    list[high].activate();
+    list[high].activate(ValueStateMap.QuickSortPartition);
     await this.showStep();
     let li = low - 1;
 

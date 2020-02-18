@@ -2,34 +2,50 @@
   background-color: #212529;
 }
 
-.node > .node-bar {
+.node-bar {
   margin-left: 0;
   margin-right: 0;
-  border-radius: 3px;
+  border-radius: 3px !important;
 }
 
-.node.active > div > p.node-value {
-  color: #339966;
-  font-weight: bold;
+/* Inactive node state class variables */
+.node-bar.inactive {
+  background-color: #6699ff;
 }
 
-.node.active > .node-bar {
-  background-color: #339966;
+.node-bar.inactive:hover {
+  background-color: #3377ff;
 }
 
-.node.active > .node-bar:hover {
-  background-color: #53c68c;
-}
-
-.node.inactive > div > p.node-value {
+.node-value.inactive {
   color: white;
   font-weight: normal;
 }
 
-.node.inactive > .node-bar {
-  background-color: #6699ff;
+/* Active (default) node state class variables */
+.node-bar.active-default {
+  background-color: #339966;
 }
 
-.node.inactive > .node-bar:hover {
-  background-color: #3377ff;
+.node-bar.active-default:hover {
+  background-color: #53c68c;
+}
+
+.node-value.active-default {
+  color: #53c68c;
+  font-weight: bold;
+}
+
+/* Active node state class variable for QuickSort Pivot items */
+.node-bar.active-qs-pivot {
+  background-color: #a93226;
+}
+
+.node-bar.active-qs-pivot:hover {
+  background-color: #cd6155;
+}
+
+.node-value.active-qs-pivot {
+  color: #a93226;
+  font-weight: bold;
 }

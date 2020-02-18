@@ -22,11 +22,12 @@ class App extends Component {
     this.handleShowStep = this.handleShowStep.bind(this);
 
     this.state = {
-      range: 50,
+      range: 20,
       sortOrder: SortOrder.RANDOM,
       algorithm: Algorithms.QUICK_SORT,
-      collection: getNewCollection(50, SortOrder.RANDOM),
+      collection: getNewCollection(20, SortOrder.RANDOM),
       sorter: getNewSorter(Algorithms.QUICK_SORT, this.handleShowStep),
+      isSorting: false,
     };
   }
 
@@ -40,12 +41,15 @@ class App extends Component {
 
   handleShowStep = async () => this.forceUpdate();
 
-  handleOnStartSort = async () =>
+  handleOnStartSort = async () => {
+    this.setState({ isSorting: true });
     await this.state.sorter.sort(this.state.collection);
+    this.setState({ isSorting: false });
+  };
 
   handleOnRangeChange = e =>
     this.setState({
-      range: e.value,
+      range: e.target.value,
       collection: getNewCollection(e.target.value, this.state.sortOrder),
     });
 
@@ -66,8 +70,9 @@ class App extends Component {
       <div>
         <Container fluid={true}>
           <Options
-            selectedSortOrder={this.state.sortOrder}
+            selectedRange={this.state.range}
             selectedAlgorithm={this.state.algorithm}
+            isSorting={this.state.isSorting}
             onRangeChange={this.handleOnRangeChange}
             onAlgorithmChange={this.handleOnAlgorithmChange}
             onListOrderChange={this.handleOnListOrderChange}
@@ -86,10 +91,9 @@ class App extends Component {
                   <Node
                     key={`node-${i.toString()}`}
                     value={e.value}
-                    showValue={this.shouldShowValues}
+                    showValues={this.shouldShowValues}
                     widthModifier={this.widthModifier}
-                    active={e.active}
-                    color={e.color}
+                    nodeState={e.state}
                   />
                 </Col>
               ))}

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
@@ -10,17 +11,6 @@ import Container from 'react-bootstrap/Container';
 import quicksort from 'sorting/algorithms/quicksort';
 
 class Options extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { activeAlgorithm: null };
-  }
-
-  handleSelection = alg => {
-    this.setState({
-      activeAlgorithm: alg,
-    });
-  };
-
   render() {
     return (
       <Navbar bg='dark' variant='dark'>
@@ -29,6 +19,7 @@ class Options extends Component {
             title='Sort Order'
             id='algorithms-dropdown'
             onSelect={this.props.onListOrderChange}
+            disabled={this.props.isSorting}
           >
             {Object.values(SortOrder).map((a, i) => (
               <NavDropdown.Item key={`sort-dd-${i.toString()}`} eventKey={a}>
@@ -40,6 +31,7 @@ class Options extends Component {
             title='Algorithm'
             id='algorithms-dropdown'
             onSelect={this.props.onAlgorithmChange}
+            disabled={this.props.isSorting}
           >
             {Object.values(Algorithms).map((a, i) => (
               <NavDropdown.Item key={`alg-dd-${i.toString()}`} eventKey={a}>
@@ -47,29 +39,33 @@ class Options extends Component {
               </NavDropdown.Item>
             ))}
           </NavDropdown>
-          {true && (
-            <Button
-              className='ml-1'
-              variant='info'
-              onClick={this.props.onStart}
-            >
-              Run {this.props.selectedAlgorithm}!
-            </Button>
-          )}
+          <Button
+            className='ml-1'
+            variant='info'
+            onClick={this.props.onStart}
+            disabled={this.props.isSorting}
+          >
+            Run {this.props.selectedAlgorithm}!
+          </Button>
         </Nav>
         <Nav className='justify-content-end' variant='pills'>
           <Container>
-            <Nav.Item>
-              <div>
+            <Navbar>
+              <Form inline>
                 <input
+                  disabled={this.props.isSorting}
                   type='range'
                   className='custom-range'
                   min='3'
                   max='100'
+                  value={this.props.selectedRange}
                   onChange={this.props.onRangeChange}
                 />
-              </div>
-            </Nav.Item>
+              </Form>
+            </Navbar>
+            <Navbar className='pr-0'>
+              <Navbar.Brand>{this.props.selectedRange}</Navbar.Brand>
+            </Navbar>
           </Container>
         </Nav>
       </Navbar>
